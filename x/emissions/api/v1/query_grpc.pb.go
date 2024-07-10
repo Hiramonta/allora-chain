@@ -25,6 +25,7 @@ const (
 	Query_GetActiveTopics_FullMethodName                       = "/emissions.v1.Query/GetActiveTopics"
 	Query_GetWorkerLatestInferenceByTopicId_FullMethodName     = "/emissions.v1.Query/GetWorkerLatestInferenceByTopicId"
 	Query_GetInferencesAtBlock_FullMethodName                  = "/emissions.v1.Query/GetInferencesAtBlock"
+	Query_GetLatestTopicInferences_FullMethodName              = "/emissions.v1.Query/GetLatestTopicInferences"
 	Query_GetForecastsAtBlock_FullMethodName                   = "/emissions.v1.Query/GetForecastsAtBlock"
 	Query_GetNetworkLossBundleAtBlock_FullMethodName           = "/emissions.v1.Query/GetNetworkLossBundleAtBlock"
 	Query_GetTotalStake_FullMethodName                         = "/emissions.v1.Query/GetTotalStake"
@@ -47,9 +48,24 @@ const (
 	Query_IsReputerRegisteredInTopicId_FullMethodName          = "/emissions.v1.Query/IsReputerRegisteredInTopicId"
 	Query_GetNetworkInferencesAtBlock_FullMethodName           = "/emissions.v1.Query/GetNetworkInferencesAtBlock"
 	Query_GetLatestNetworkInference_FullMethodName             = "/emissions.v1.Query/GetLatestNetworkInference"
+	Query_GetIsWorkerNonceUnfulfilled_FullMethodName           = "/emissions.v1.Query/GetIsWorkerNonceUnfulfilled"
+	Query_GetIsReputerNonceUnfulfilled_FullMethodName          = "/emissions.v1.Query/GetIsReputerNonceUnfulfilled"
+	Query_GetUnfulfilledWorkerNonces_FullMethodName            = "/emissions.v1.Query/GetUnfulfilledWorkerNonces"
+	Query_GetUnfulfilledReputerNonces_FullMethodName           = "/emissions.v1.Query/GetUnfulfilledReputerNonces"
+	Query_GetInfererNetworkRegret_FullMethodName               = "/emissions.v1.Query/GetInfererNetworkRegret"
+	Query_GetForecasterNetworkRegret_FullMethodName            = "/emissions.v1.Query/GetForecasterNetworkRegret"
+	Query_GetOneInForecasterNetworkRegret_FullMethodName       = "/emissions.v1.Query/GetOneInForecasterNetworkRegret"
+	Query_GetOneInForecasterSelfNetworkRegret_FullMethodName   = "/emissions.v1.Query/GetOneInForecasterSelfNetworkRegret"
 	Query_IsWhitelistAdmin_FullMethodName                      = "/emissions.v1.Query/IsWhitelistAdmin"
 	Query_GetTopicLastWorkerCommitInfo_FullMethodName          = "/emissions.v1.Query/GetTopicLastWorkerCommitInfo"
 	Query_GetTopicLastReputerCommitInfo_FullMethodName         = "/emissions.v1.Query/GetTopicLastReputerCommitInfo"
+	Query_GetTopicRewardNonce_FullMethodName                   = "/emissions.v1.Query/GetTopicRewardNonce"
+	Query_GetReputerLossBundlesAtBlock_FullMethodName          = "/emissions.v1.Query/GetReputerLossBundlesAtBlock"
+	Query_GetStakeReputerAuthority_FullMethodName              = "/emissions.v1.Query/GetStakeReputerAuthority"
+	Query_GetDelegateStakePlacement_FullMethodName             = "/emissions.v1.Query/GetDelegateStakePlacement"
+	Query_GetDelegateStakeUponReputer_FullMethodName           = "/emissions.v1.Query/GetDelegateStakeUponReputer"
+	Query_GetDelegateRewardPerShare_FullMethodName             = "/emissions.v1.Query/GetDelegateRewardPerShare"
+	Query_GetStakeRemovalForReputerAndTopicId_FullMethodName   = "/emissions.v1.Query/GetStakeRemovalForReputerAndTopicId"
 )
 
 // QueryClient is the client API for Query service.
@@ -63,6 +79,7 @@ type QueryClient interface {
 	GetActiveTopics(ctx context.Context, in *QueryActiveTopicsRequest, opts ...grpc.CallOption) (*QueryActiveTopicsResponse, error)
 	GetWorkerLatestInferenceByTopicId(ctx context.Context, in *QueryWorkerLatestInferenceRequest, opts ...grpc.CallOption) (*QueryWorkerLatestInferenceResponse, error)
 	GetInferencesAtBlock(ctx context.Context, in *QueryInferencesAtBlockRequest, opts ...grpc.CallOption) (*QueryInferencesAtBlockResponse, error)
+	GetLatestTopicInferences(ctx context.Context, in *QueryLatestTopicInferencesRequest, opts ...grpc.CallOption) (*QueryLatestTopicInferencesResponse, error)
 	GetForecastsAtBlock(ctx context.Context, in *QueryForecastsAtBlockRequest, opts ...grpc.CallOption) (*QueryForecastsAtBlockResponse, error)
 	GetNetworkLossBundleAtBlock(ctx context.Context, in *QueryNetworkLossBundleAtBlockRequest, opts ...grpc.CallOption) (*QueryNetworkLossBundleAtBlockResponse, error)
 	GetTotalStake(ctx context.Context, in *QueryTotalStakeRequest, opts ...grpc.CallOption) (*QueryTotalStakeResponse, error)
@@ -85,9 +102,24 @@ type QueryClient interface {
 	IsReputerRegisteredInTopicId(ctx context.Context, in *QueryIsReputerRegisteredInTopicIdRequest, opts ...grpc.CallOption) (*QueryIsReputerRegisteredInTopicIdResponse, error)
 	GetNetworkInferencesAtBlock(ctx context.Context, in *QueryNetworkInferencesAtBlockRequest, opts ...grpc.CallOption) (*QueryNetworkInferencesAtBlockResponse, error)
 	GetLatestNetworkInference(ctx context.Context, in *QueryLatestNetworkInferencesAtBlockRequest, opts ...grpc.CallOption) (*QueryLatestNetworkInferencesAtBlockResponse, error)
+	GetIsWorkerNonceUnfulfilled(ctx context.Context, in *QueryIsWorkerNonceUnfulfilledRequest, opts ...grpc.CallOption) (*QueryIsWorkerNonceUnfulfilledResponse, error)
+	GetIsReputerNonceUnfulfilled(ctx context.Context, in *QueryIsReputerNonceUnfulfilledRequest, opts ...grpc.CallOption) (*QueryIsReputerNonceUnfulfilledResponse, error)
+	GetUnfulfilledWorkerNonces(ctx context.Context, in *QueryUnfulfilledWorkerNoncesRequest, opts ...grpc.CallOption) (*QueryUnfulfilledWorkerNoncesResponse, error)
+	GetUnfulfilledReputerNonces(ctx context.Context, in *QueryUnfulfilledReputerNoncesRequest, opts ...grpc.CallOption) (*QueryUnfulfilledReputerNoncesResponse, error)
+	GetInfererNetworkRegret(ctx context.Context, in *QueryInfererNetworkRegretRequest, opts ...grpc.CallOption) (*QueryInfererNetworkRegretResponse, error)
+	GetForecasterNetworkRegret(ctx context.Context, in *QueryForecasterNetworkRegretRequest, opts ...grpc.CallOption) (*QueryForecasterNetworkRegretResponse, error)
+	GetOneInForecasterNetworkRegret(ctx context.Context, in *QueryOneInForecasterNetworkRegretRequest, opts ...grpc.CallOption) (*QueryOneInForecasterNetworkRegretResponse, error)
+	GetOneInForecasterSelfNetworkRegret(ctx context.Context, in *QueryOneInForecasterSelfNetworkRegretRequest, opts ...grpc.CallOption) (*QueryOneInForecasterSelfNetworkRegretResponse, error)
 	IsWhitelistAdmin(ctx context.Context, in *QueryIsWhitelistAdminRequest, opts ...grpc.CallOption) (*QueryIsWhitelistAdminResponse, error)
 	GetTopicLastWorkerCommitInfo(ctx context.Context, in *QueryTopicLastCommitRequest, opts ...grpc.CallOption) (*QueryTopicLastCommitResponse, error)
 	GetTopicLastReputerCommitInfo(ctx context.Context, in *QueryTopicLastCommitRequest, opts ...grpc.CallOption) (*QueryTopicLastCommitResponse, error)
+	GetTopicRewardNonce(ctx context.Context, in *QueryTopicRewardNonceRequest, opts ...grpc.CallOption) (*QueryTopicRewardNonceResponse, error)
+	GetReputerLossBundlesAtBlock(ctx context.Context, in *QueryReputerLossBundlesAtBlockRequest, opts ...grpc.CallOption) (*QueryReputerLossBundlesAtBlockResponse, error)
+	GetStakeReputerAuthority(ctx context.Context, in *QueryStakeReputerAuthorityRequest, opts ...grpc.CallOption) (*QueryStakeReputerAuthorityResponse, error)
+	GetDelegateStakePlacement(ctx context.Context, in *QueryDelegateStakePlacementRequest, opts ...grpc.CallOption) (*QueryDelegateStakePlacementResponse, error)
+	GetDelegateStakeUponReputer(ctx context.Context, in *QueryDelegateStakeUponReputerRequest, opts ...grpc.CallOption) (*QueryDelegateStakeUponReputerResponse, error)
+	GetDelegateRewardPerShare(ctx context.Context, in *QueryDelegateRewardPerShareRequest, opts ...grpc.CallOption) (*QueryDelegateRewardPerShareResponse, error)
+	GetStakeRemovalForReputerAndTopicId(ctx context.Context, in *QueryStakeRemovalForReputerAndTopicIdRequest, opts ...grpc.CallOption) (*QueryStakeRemovalForReputerAndTopicIdResponse, error)
 }
 
 type queryClient struct {
@@ -146,6 +178,15 @@ func (c *queryClient) GetWorkerLatestInferenceByTopicId(ctx context.Context, in 
 func (c *queryClient) GetInferencesAtBlock(ctx context.Context, in *QueryInferencesAtBlockRequest, opts ...grpc.CallOption) (*QueryInferencesAtBlockResponse, error) {
 	out := new(QueryInferencesAtBlockResponse)
 	err := c.cc.Invoke(ctx, Query_GetInferencesAtBlock_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetLatestTopicInferences(ctx context.Context, in *QueryLatestTopicInferencesRequest, opts ...grpc.CallOption) (*QueryLatestTopicInferencesResponse, error) {
+	out := new(QueryLatestTopicInferencesResponse)
+	err := c.cc.Invoke(ctx, Query_GetLatestTopicInferences_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -350,6 +391,78 @@ func (c *queryClient) GetLatestNetworkInference(ctx context.Context, in *QueryLa
 	return out, nil
 }
 
+func (c *queryClient) GetIsWorkerNonceUnfulfilled(ctx context.Context, in *QueryIsWorkerNonceUnfulfilledRequest, opts ...grpc.CallOption) (*QueryIsWorkerNonceUnfulfilledResponse, error) {
+	out := new(QueryIsWorkerNonceUnfulfilledResponse)
+	err := c.cc.Invoke(ctx, Query_GetIsWorkerNonceUnfulfilled_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetIsReputerNonceUnfulfilled(ctx context.Context, in *QueryIsReputerNonceUnfulfilledRequest, opts ...grpc.CallOption) (*QueryIsReputerNonceUnfulfilledResponse, error) {
+	out := new(QueryIsReputerNonceUnfulfilledResponse)
+	err := c.cc.Invoke(ctx, Query_GetIsReputerNonceUnfulfilled_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetUnfulfilledWorkerNonces(ctx context.Context, in *QueryUnfulfilledWorkerNoncesRequest, opts ...grpc.CallOption) (*QueryUnfulfilledWorkerNoncesResponse, error) {
+	out := new(QueryUnfulfilledWorkerNoncesResponse)
+	err := c.cc.Invoke(ctx, Query_GetUnfulfilledWorkerNonces_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetUnfulfilledReputerNonces(ctx context.Context, in *QueryUnfulfilledReputerNoncesRequest, opts ...grpc.CallOption) (*QueryUnfulfilledReputerNoncesResponse, error) {
+	out := new(QueryUnfulfilledReputerNoncesResponse)
+	err := c.cc.Invoke(ctx, Query_GetUnfulfilledReputerNonces_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetInfererNetworkRegret(ctx context.Context, in *QueryInfererNetworkRegretRequest, opts ...grpc.CallOption) (*QueryInfererNetworkRegretResponse, error) {
+	out := new(QueryInfererNetworkRegretResponse)
+	err := c.cc.Invoke(ctx, Query_GetInfererNetworkRegret_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetForecasterNetworkRegret(ctx context.Context, in *QueryForecasterNetworkRegretRequest, opts ...grpc.CallOption) (*QueryForecasterNetworkRegretResponse, error) {
+	out := new(QueryForecasterNetworkRegretResponse)
+	err := c.cc.Invoke(ctx, Query_GetForecasterNetworkRegret_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetOneInForecasterNetworkRegret(ctx context.Context, in *QueryOneInForecasterNetworkRegretRequest, opts ...grpc.CallOption) (*QueryOneInForecasterNetworkRegretResponse, error) {
+	out := new(QueryOneInForecasterNetworkRegretResponse)
+	err := c.cc.Invoke(ctx, Query_GetOneInForecasterNetworkRegret_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetOneInForecasterSelfNetworkRegret(ctx context.Context, in *QueryOneInForecasterSelfNetworkRegretRequest, opts ...grpc.CallOption) (*QueryOneInForecasterSelfNetworkRegretResponse, error) {
+	out := new(QueryOneInForecasterSelfNetworkRegretResponse)
+	err := c.cc.Invoke(ctx, Query_GetOneInForecasterSelfNetworkRegret_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *queryClient) IsWhitelistAdmin(ctx context.Context, in *QueryIsWhitelistAdminRequest, opts ...grpc.CallOption) (*QueryIsWhitelistAdminResponse, error) {
 	out := new(QueryIsWhitelistAdminResponse)
 	err := c.cc.Invoke(ctx, Query_IsWhitelistAdmin_FullMethodName, in, out, opts...)
@@ -377,6 +490,69 @@ func (c *queryClient) GetTopicLastReputerCommitInfo(ctx context.Context, in *Que
 	return out, nil
 }
 
+func (c *queryClient) GetTopicRewardNonce(ctx context.Context, in *QueryTopicRewardNonceRequest, opts ...grpc.CallOption) (*QueryTopicRewardNonceResponse, error) {
+	out := new(QueryTopicRewardNonceResponse)
+	err := c.cc.Invoke(ctx, Query_GetTopicRewardNonce_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetReputerLossBundlesAtBlock(ctx context.Context, in *QueryReputerLossBundlesAtBlockRequest, opts ...grpc.CallOption) (*QueryReputerLossBundlesAtBlockResponse, error) {
+	out := new(QueryReputerLossBundlesAtBlockResponse)
+	err := c.cc.Invoke(ctx, Query_GetReputerLossBundlesAtBlock_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetStakeReputerAuthority(ctx context.Context, in *QueryStakeReputerAuthorityRequest, opts ...grpc.CallOption) (*QueryStakeReputerAuthorityResponse, error) {
+	out := new(QueryStakeReputerAuthorityResponse)
+	err := c.cc.Invoke(ctx, Query_GetStakeReputerAuthority_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetDelegateStakePlacement(ctx context.Context, in *QueryDelegateStakePlacementRequest, opts ...grpc.CallOption) (*QueryDelegateStakePlacementResponse, error) {
+	out := new(QueryDelegateStakePlacementResponse)
+	err := c.cc.Invoke(ctx, Query_GetDelegateStakePlacement_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetDelegateStakeUponReputer(ctx context.Context, in *QueryDelegateStakeUponReputerRequest, opts ...grpc.CallOption) (*QueryDelegateStakeUponReputerResponse, error) {
+	out := new(QueryDelegateStakeUponReputerResponse)
+	err := c.cc.Invoke(ctx, Query_GetDelegateStakeUponReputer_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetDelegateRewardPerShare(ctx context.Context, in *QueryDelegateRewardPerShareRequest, opts ...grpc.CallOption) (*QueryDelegateRewardPerShareResponse, error) {
+	out := new(QueryDelegateRewardPerShareResponse)
+	err := c.cc.Invoke(ctx, Query_GetDelegateRewardPerShare_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetStakeRemovalForReputerAndTopicId(ctx context.Context, in *QueryStakeRemovalForReputerAndTopicIdRequest, opts ...grpc.CallOption) (*QueryStakeRemovalForReputerAndTopicIdResponse, error) {
+	out := new(QueryStakeRemovalForReputerAndTopicIdResponse)
+	err := c.cc.Invoke(ctx, Query_GetStakeRemovalForReputerAndTopicId_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -388,6 +564,7 @@ type QueryServer interface {
 	GetActiveTopics(context.Context, *QueryActiveTopicsRequest) (*QueryActiveTopicsResponse, error)
 	GetWorkerLatestInferenceByTopicId(context.Context, *QueryWorkerLatestInferenceRequest) (*QueryWorkerLatestInferenceResponse, error)
 	GetInferencesAtBlock(context.Context, *QueryInferencesAtBlockRequest) (*QueryInferencesAtBlockResponse, error)
+	GetLatestTopicInferences(context.Context, *QueryLatestTopicInferencesRequest) (*QueryLatestTopicInferencesResponse, error)
 	GetForecastsAtBlock(context.Context, *QueryForecastsAtBlockRequest) (*QueryForecastsAtBlockResponse, error)
 	GetNetworkLossBundleAtBlock(context.Context, *QueryNetworkLossBundleAtBlockRequest) (*QueryNetworkLossBundleAtBlockResponse, error)
 	GetTotalStake(context.Context, *QueryTotalStakeRequest) (*QueryTotalStakeResponse, error)
@@ -410,9 +587,24 @@ type QueryServer interface {
 	IsReputerRegisteredInTopicId(context.Context, *QueryIsReputerRegisteredInTopicIdRequest) (*QueryIsReputerRegisteredInTopicIdResponse, error)
 	GetNetworkInferencesAtBlock(context.Context, *QueryNetworkInferencesAtBlockRequest) (*QueryNetworkInferencesAtBlockResponse, error)
 	GetLatestNetworkInference(context.Context, *QueryLatestNetworkInferencesAtBlockRequest) (*QueryLatestNetworkInferencesAtBlockResponse, error)
+	GetIsWorkerNonceUnfulfilled(context.Context, *QueryIsWorkerNonceUnfulfilledRequest) (*QueryIsWorkerNonceUnfulfilledResponse, error)
+	GetIsReputerNonceUnfulfilled(context.Context, *QueryIsReputerNonceUnfulfilledRequest) (*QueryIsReputerNonceUnfulfilledResponse, error)
+	GetUnfulfilledWorkerNonces(context.Context, *QueryUnfulfilledWorkerNoncesRequest) (*QueryUnfulfilledWorkerNoncesResponse, error)
+	GetUnfulfilledReputerNonces(context.Context, *QueryUnfulfilledReputerNoncesRequest) (*QueryUnfulfilledReputerNoncesResponse, error)
+	GetInfererNetworkRegret(context.Context, *QueryInfererNetworkRegretRequest) (*QueryInfererNetworkRegretResponse, error)
+	GetForecasterNetworkRegret(context.Context, *QueryForecasterNetworkRegretRequest) (*QueryForecasterNetworkRegretResponse, error)
+	GetOneInForecasterNetworkRegret(context.Context, *QueryOneInForecasterNetworkRegretRequest) (*QueryOneInForecasterNetworkRegretResponse, error)
+	GetOneInForecasterSelfNetworkRegret(context.Context, *QueryOneInForecasterSelfNetworkRegretRequest) (*QueryOneInForecasterSelfNetworkRegretResponse, error)
 	IsWhitelistAdmin(context.Context, *QueryIsWhitelistAdminRequest) (*QueryIsWhitelistAdminResponse, error)
 	GetTopicLastWorkerCommitInfo(context.Context, *QueryTopicLastCommitRequest) (*QueryTopicLastCommitResponse, error)
 	GetTopicLastReputerCommitInfo(context.Context, *QueryTopicLastCommitRequest) (*QueryTopicLastCommitResponse, error)
+	GetTopicRewardNonce(context.Context, *QueryTopicRewardNonceRequest) (*QueryTopicRewardNonceResponse, error)
+	GetReputerLossBundlesAtBlock(context.Context, *QueryReputerLossBundlesAtBlockRequest) (*QueryReputerLossBundlesAtBlockResponse, error)
+	GetStakeReputerAuthority(context.Context, *QueryStakeReputerAuthorityRequest) (*QueryStakeReputerAuthorityResponse, error)
+	GetDelegateStakePlacement(context.Context, *QueryDelegateStakePlacementRequest) (*QueryDelegateStakePlacementResponse, error)
+	GetDelegateStakeUponReputer(context.Context, *QueryDelegateStakeUponReputerRequest) (*QueryDelegateStakeUponReputerResponse, error)
+	GetDelegateRewardPerShare(context.Context, *QueryDelegateRewardPerShareRequest) (*QueryDelegateRewardPerShareResponse, error)
+	GetStakeRemovalForReputerAndTopicId(context.Context, *QueryStakeRemovalForReputerAndTopicIdRequest) (*QueryStakeRemovalForReputerAndTopicIdResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -437,6 +629,9 @@ func (UnimplementedQueryServer) GetWorkerLatestInferenceByTopicId(context.Contex
 }
 func (UnimplementedQueryServer) GetInferencesAtBlock(context.Context, *QueryInferencesAtBlockRequest) (*QueryInferencesAtBlockResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetInferencesAtBlock not implemented")
+}
+func (UnimplementedQueryServer) GetLatestTopicInferences(context.Context, *QueryLatestTopicInferencesRequest) (*QueryLatestTopicInferencesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLatestTopicInferences not implemented")
 }
 func (UnimplementedQueryServer) GetForecastsAtBlock(context.Context, *QueryForecastsAtBlockRequest) (*QueryForecastsAtBlockResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetForecastsAtBlock not implemented")
@@ -504,6 +699,30 @@ func (UnimplementedQueryServer) GetNetworkInferencesAtBlock(context.Context, *Qu
 func (UnimplementedQueryServer) GetLatestNetworkInference(context.Context, *QueryLatestNetworkInferencesAtBlockRequest) (*QueryLatestNetworkInferencesAtBlockResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLatestNetworkInference not implemented")
 }
+func (UnimplementedQueryServer) GetIsWorkerNonceUnfulfilled(context.Context, *QueryIsWorkerNonceUnfulfilledRequest) (*QueryIsWorkerNonceUnfulfilledResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetIsWorkerNonceUnfulfilled not implemented")
+}
+func (UnimplementedQueryServer) GetIsReputerNonceUnfulfilled(context.Context, *QueryIsReputerNonceUnfulfilledRequest) (*QueryIsReputerNonceUnfulfilledResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetIsReputerNonceUnfulfilled not implemented")
+}
+func (UnimplementedQueryServer) GetUnfulfilledWorkerNonces(context.Context, *QueryUnfulfilledWorkerNoncesRequest) (*QueryUnfulfilledWorkerNoncesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUnfulfilledWorkerNonces not implemented")
+}
+func (UnimplementedQueryServer) GetUnfulfilledReputerNonces(context.Context, *QueryUnfulfilledReputerNoncesRequest) (*QueryUnfulfilledReputerNoncesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUnfulfilledReputerNonces not implemented")
+}
+func (UnimplementedQueryServer) GetInfererNetworkRegret(context.Context, *QueryInfererNetworkRegretRequest) (*QueryInfererNetworkRegretResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetInfererNetworkRegret not implemented")
+}
+func (UnimplementedQueryServer) GetForecasterNetworkRegret(context.Context, *QueryForecasterNetworkRegretRequest) (*QueryForecasterNetworkRegretResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetForecasterNetworkRegret not implemented")
+}
+func (UnimplementedQueryServer) GetOneInForecasterNetworkRegret(context.Context, *QueryOneInForecasterNetworkRegretRequest) (*QueryOneInForecasterNetworkRegretResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOneInForecasterNetworkRegret not implemented")
+}
+func (UnimplementedQueryServer) GetOneInForecasterSelfNetworkRegret(context.Context, *QueryOneInForecasterSelfNetworkRegretRequest) (*QueryOneInForecasterSelfNetworkRegretResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOneInForecasterSelfNetworkRegret not implemented")
+}
 func (UnimplementedQueryServer) IsWhitelistAdmin(context.Context, *QueryIsWhitelistAdminRequest) (*QueryIsWhitelistAdminResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method IsWhitelistAdmin not implemented")
 }
@@ -512,6 +731,27 @@ func (UnimplementedQueryServer) GetTopicLastWorkerCommitInfo(context.Context, *Q
 }
 func (UnimplementedQueryServer) GetTopicLastReputerCommitInfo(context.Context, *QueryTopicLastCommitRequest) (*QueryTopicLastCommitResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTopicLastReputerCommitInfo not implemented")
+}
+func (UnimplementedQueryServer) GetTopicRewardNonce(context.Context, *QueryTopicRewardNonceRequest) (*QueryTopicRewardNonceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTopicRewardNonce not implemented")
+}
+func (UnimplementedQueryServer) GetReputerLossBundlesAtBlock(context.Context, *QueryReputerLossBundlesAtBlockRequest) (*QueryReputerLossBundlesAtBlockResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetReputerLossBundlesAtBlock not implemented")
+}
+func (UnimplementedQueryServer) GetStakeReputerAuthority(context.Context, *QueryStakeReputerAuthorityRequest) (*QueryStakeReputerAuthorityResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStakeReputerAuthority not implemented")
+}
+func (UnimplementedQueryServer) GetDelegateStakePlacement(context.Context, *QueryDelegateStakePlacementRequest) (*QueryDelegateStakePlacementResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDelegateStakePlacement not implemented")
+}
+func (UnimplementedQueryServer) GetDelegateStakeUponReputer(context.Context, *QueryDelegateStakeUponReputerRequest) (*QueryDelegateStakeUponReputerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDelegateStakeUponReputer not implemented")
+}
+func (UnimplementedQueryServer) GetDelegateRewardPerShare(context.Context, *QueryDelegateRewardPerShareRequest) (*QueryDelegateRewardPerShareResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDelegateRewardPerShare not implemented")
+}
+func (UnimplementedQueryServer) GetStakeRemovalForReputerAndTopicId(context.Context, *QueryStakeRemovalForReputerAndTopicIdRequest) (*QueryStakeRemovalForReputerAndTopicIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStakeRemovalForReputerAndTopicId not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -630,6 +870,24 @@ func _Query_GetInferencesAtBlock_Handler(srv interface{}, ctx context.Context, d
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).GetInferencesAtBlock(ctx, req.(*QueryInferencesAtBlockRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetLatestTopicInferences_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryLatestTopicInferencesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetLatestTopicInferences(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetLatestTopicInferences_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetLatestTopicInferences(ctx, req.(*QueryLatestTopicInferencesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1030,6 +1288,150 @@ func _Query_GetLatestNetworkInference_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_GetIsWorkerNonceUnfulfilled_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryIsWorkerNonceUnfulfilledRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetIsWorkerNonceUnfulfilled(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetIsWorkerNonceUnfulfilled_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetIsWorkerNonceUnfulfilled(ctx, req.(*QueryIsWorkerNonceUnfulfilledRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetIsReputerNonceUnfulfilled_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryIsReputerNonceUnfulfilledRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetIsReputerNonceUnfulfilled(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetIsReputerNonceUnfulfilled_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetIsReputerNonceUnfulfilled(ctx, req.(*QueryIsReputerNonceUnfulfilledRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetUnfulfilledWorkerNonces_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryUnfulfilledWorkerNoncesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetUnfulfilledWorkerNonces(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetUnfulfilledWorkerNonces_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetUnfulfilledWorkerNonces(ctx, req.(*QueryUnfulfilledWorkerNoncesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetUnfulfilledReputerNonces_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryUnfulfilledReputerNoncesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetUnfulfilledReputerNonces(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetUnfulfilledReputerNonces_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetUnfulfilledReputerNonces(ctx, req.(*QueryUnfulfilledReputerNoncesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetInfererNetworkRegret_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryInfererNetworkRegretRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetInfererNetworkRegret(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetInfererNetworkRegret_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetInfererNetworkRegret(ctx, req.(*QueryInfererNetworkRegretRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetForecasterNetworkRegret_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryForecasterNetworkRegretRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetForecasterNetworkRegret(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetForecasterNetworkRegret_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetForecasterNetworkRegret(ctx, req.(*QueryForecasterNetworkRegretRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetOneInForecasterNetworkRegret_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryOneInForecasterNetworkRegretRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetOneInForecasterNetworkRegret(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetOneInForecasterNetworkRegret_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetOneInForecasterNetworkRegret(ctx, req.(*QueryOneInForecasterNetworkRegretRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetOneInForecasterSelfNetworkRegret_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryOneInForecasterSelfNetworkRegretRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetOneInForecasterSelfNetworkRegret(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetOneInForecasterSelfNetworkRegret_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetOneInForecasterSelfNetworkRegret(ctx, req.(*QueryOneInForecasterSelfNetworkRegretRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Query_IsWhitelistAdmin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(QueryIsWhitelistAdminRequest)
 	if err := dec(in); err != nil {
@@ -1084,6 +1486,132 @@ func _Query_GetTopicLastReputerCommitInfo_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_GetTopicRewardNonce_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryTopicRewardNonceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetTopicRewardNonce(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetTopicRewardNonce_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetTopicRewardNonce(ctx, req.(*QueryTopicRewardNonceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetReputerLossBundlesAtBlock_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryReputerLossBundlesAtBlockRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetReputerLossBundlesAtBlock(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetReputerLossBundlesAtBlock_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetReputerLossBundlesAtBlock(ctx, req.(*QueryReputerLossBundlesAtBlockRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetStakeReputerAuthority_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryStakeReputerAuthorityRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetStakeReputerAuthority(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetStakeReputerAuthority_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetStakeReputerAuthority(ctx, req.(*QueryStakeReputerAuthorityRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetDelegateStakePlacement_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryDelegateStakePlacementRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetDelegateStakePlacement(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetDelegateStakePlacement_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetDelegateStakePlacement(ctx, req.(*QueryDelegateStakePlacementRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetDelegateStakeUponReputer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryDelegateStakeUponReputerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetDelegateStakeUponReputer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetDelegateStakeUponReputer_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetDelegateStakeUponReputer(ctx, req.(*QueryDelegateStakeUponReputerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetDelegateRewardPerShare_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryDelegateRewardPerShareRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetDelegateRewardPerShare(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetDelegateRewardPerShare_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetDelegateRewardPerShare(ctx, req.(*QueryDelegateRewardPerShareRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetStakeRemovalForReputerAndTopicId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryStakeRemovalForReputerAndTopicIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetStakeRemovalForReputerAndTopicId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_GetStakeRemovalForReputerAndTopicId_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetStakeRemovalForReputerAndTopicId(ctx, req.(*QueryStakeRemovalForReputerAndTopicIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1114,6 +1642,10 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetInferencesAtBlock",
 			Handler:    _Query_GetInferencesAtBlock_Handler,
+		},
+		{
+			MethodName: "GetLatestTopicInferences",
+			Handler:    _Query_GetLatestTopicInferences_Handler,
 		},
 		{
 			MethodName: "GetForecastsAtBlock",
@@ -1204,6 +1736,38 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Query_GetLatestNetworkInference_Handler,
 		},
 		{
+			MethodName: "GetIsWorkerNonceUnfulfilled",
+			Handler:    _Query_GetIsWorkerNonceUnfulfilled_Handler,
+		},
+		{
+			MethodName: "GetIsReputerNonceUnfulfilled",
+			Handler:    _Query_GetIsReputerNonceUnfulfilled_Handler,
+		},
+		{
+			MethodName: "GetUnfulfilledWorkerNonces",
+			Handler:    _Query_GetUnfulfilledWorkerNonces_Handler,
+		},
+		{
+			MethodName: "GetUnfulfilledReputerNonces",
+			Handler:    _Query_GetUnfulfilledReputerNonces_Handler,
+		},
+		{
+			MethodName: "GetInfererNetworkRegret",
+			Handler:    _Query_GetInfererNetworkRegret_Handler,
+		},
+		{
+			MethodName: "GetForecasterNetworkRegret",
+			Handler:    _Query_GetForecasterNetworkRegret_Handler,
+		},
+		{
+			MethodName: "GetOneInForecasterNetworkRegret",
+			Handler:    _Query_GetOneInForecasterNetworkRegret_Handler,
+		},
+		{
+			MethodName: "GetOneInForecasterSelfNetworkRegret",
+			Handler:    _Query_GetOneInForecasterSelfNetworkRegret_Handler,
+		},
+		{
 			MethodName: "IsWhitelistAdmin",
 			Handler:    _Query_IsWhitelistAdmin_Handler,
 		},
@@ -1214,6 +1778,34 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTopicLastReputerCommitInfo",
 			Handler:    _Query_GetTopicLastReputerCommitInfo_Handler,
+		},
+		{
+			MethodName: "GetTopicRewardNonce",
+			Handler:    _Query_GetTopicRewardNonce_Handler,
+		},
+		{
+			MethodName: "GetReputerLossBundlesAtBlock",
+			Handler:    _Query_GetReputerLossBundlesAtBlock_Handler,
+		},
+		{
+			MethodName: "GetStakeReputerAuthority",
+			Handler:    _Query_GetStakeReputerAuthority_Handler,
+		},
+		{
+			MethodName: "GetDelegateStakePlacement",
+			Handler:    _Query_GetDelegateStakePlacement_Handler,
+		},
+		{
+			MethodName: "GetDelegateStakeUponReputer",
+			Handler:    _Query_GetDelegateStakeUponReputer_Handler,
+		},
+		{
+			MethodName: "GetDelegateRewardPerShare",
+			Handler:    _Query_GetDelegateRewardPerShare_Handler,
+		},
+		{
+			MethodName: "GetStakeRemovalForReputerAndTopicId",
+			Handler:    _Query_GetStakeRemovalForReputerAndTopicId_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

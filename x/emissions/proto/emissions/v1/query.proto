@@ -14,6 +14,7 @@ import "emissions/v1/params.proto";
 import "emissions/v1/node.proto";
 import "emissions/v1/worker.proto";
 import "emissions/v1/reputer.proto";
+import "emissions/v1/nonce.proto";
 import "emissions/v1/topic.proto";
 import "emissions/v1/stake.proto";
 import "emissions/v1/inference.proto";
@@ -50,6 +51,11 @@ service Query {
   rpc GetInferencesAtBlock(QueryInferencesAtBlockRequest) returns (QueryInferencesAtBlockResponse) {
     option (cosmos.query.v1.module_query_safe) = true;
     option (google.api.http).get = "/emissions/v1/inferences/{topic_id}/{block_height}";
+  }
+
+  rpc GetLatestTopicInferences(QueryLatestTopicInferencesRequest) returns (QueryLatestTopicInferencesResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/emissions/v1/latest_inferences/{topic_id}";
   }
 
   rpc GetForecastsAtBlock(QueryForecastsAtBlockRequest) returns (QueryForecastsAtBlockResponse) {
@@ -176,6 +182,51 @@ service Query {
     option (google.api.http).get = "/emissions/v1/network_inferences/{topic_id}";
   }
 
+  rpc GetIsWorkerNonceUnfulfilled(QueryIsWorkerNonceUnfulfilledRequest)
+      returns (QueryIsWorkerNonceUnfulfilledResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/emissions/v1/is_worker_nonce_unfulfilled/{topic_id}/{block_height}";
+  }
+
+  rpc GetIsReputerNonceUnfulfilled(QueryIsReputerNonceUnfulfilledRequest)
+      returns (QueryIsReputerNonceUnfulfilledResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/emissions/v1/is_reputer_nonce_unfulfilled/{topic_id}/{block_height}";
+  }
+
+  rpc GetUnfulfilledWorkerNonces(QueryUnfulfilledWorkerNoncesRequest) returns (QueryUnfulfilledWorkerNoncesResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/emissions/v1/unfulfilled_worker_nonces/{topic_id}";
+  }
+
+  rpc GetUnfulfilledReputerNonces(QueryUnfulfilledReputerNoncesRequest)
+      returns (QueryUnfulfilledReputerNoncesResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/emissions/v1/unfulfilled_reputer_nonces/{topic_id}";
+  }
+
+  rpc GetInfererNetworkRegret(QueryInfererNetworkRegretRequest) returns (QueryInfererNetworkRegretResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/emissions/v1/inferer_network_regret/{topic_id}/{actor_id}";
+  }
+
+  rpc GetForecasterNetworkRegret(QueryForecasterNetworkRegretRequest) returns (QueryForecasterNetworkRegretResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/emissions/v1/forecaster_network_regret/{topic_id}/{worker}";
+  }
+
+  rpc GetOneInForecasterNetworkRegret(QueryOneInForecasterNetworkRegretRequest)
+      returns (QueryOneInForecasterNetworkRegretResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/emissions/v1/one_in_forecaster_network_regret/{topic_id}/{forecaster}/{inferer}";
+  }
+
+  rpc GetOneInForecasterSelfNetworkRegret(QueryOneInForecasterSelfNetworkRegretRequest)
+      returns (QueryOneInForecasterSelfNetworkRegretResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/emissions/v1/one_in_forecaster_self_network_regret/{topic_id}/{forecaster}";
+  }
+
   rpc IsWhitelistAdmin(QueryIsWhitelistAdminRequest) returns (QueryIsWhitelistAdminResponse) {
     option (google.api.http).get = "/emissions/v1/whitelist_admin/{address}";
   }
@@ -188,6 +239,44 @@ service Query {
   rpc GetTopicLastReputerCommitInfo(QueryTopicLastCommitRequest) returns (QueryTopicLastCommitResponse) {
     option (cosmos.query.v1.module_query_safe) = true;
     option (google.api.http).get = "/emissions/v1/topic_last_commit/{topic_id}";
+  }
+
+  rpc GetTopicRewardNonce(QueryTopicRewardNonceRequest) returns (QueryTopicRewardNonceResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/emissions/v1/topic_reward_nonce/{topic_id}";
+  }
+
+  rpc GetReputerLossBundlesAtBlock(QueryReputerLossBundlesAtBlockRequest)
+      returns (QueryReputerLossBundlesAtBlockResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/emissions/v1/reputer_loss_bundles/{topic_id}/{block_height}";
+  }
+
+  rpc GetStakeReputerAuthority(QueryStakeReputerAuthorityRequest) returns (QueryStakeReputerAuthorityResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/emissions/v1/stake_reputer_authority/{topic_id}/{reputer}";
+  }
+
+  rpc GetDelegateStakePlacement(QueryDelegateStakePlacementRequest) returns (QueryDelegateStakePlacementResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/emissions/v1/delegate_stake_placement/{topic_id}/{delegator}/{target}";
+  }
+
+  rpc GetDelegateStakeUponReputer(QueryDelegateStakeUponReputerRequest)
+      returns (QueryDelegateStakeUponReputerResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/emissions/v1/delegate_stake_upon_reputer/{topic_id}/{target}";
+  }
+
+  rpc GetDelegateRewardPerShare(QueryDelegateRewardPerShareRequest) returns (QueryDelegateRewardPerShareResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/emissions/v1/delegate_reward_per_share/{topic_id}/{reputer}";
+  }
+
+  rpc GetStakeRemovalForReputerAndTopicId(QueryStakeRemovalForReputerAndTopicIdRequest)
+      returns (QueryStakeRemovalForReputerAndTopicIdResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get = "/emissions/v1/stake_removal/{reputer}/{topic_id}";
   }
 }
 
@@ -364,6 +453,15 @@ message QueryInferencesAtBlockResponse {
   Inferences inferences = 1;
 }
 
+message QueryLatestTopicInferencesRequest {
+  uint64 topic_id = 1;
+}
+
+message QueryLatestTopicInferencesResponse {
+  Inferences inferences = 1;
+  int64 block_height = 2;
+}
+
 // Returns the forecasts on a topic posted at a block height
 message QueryForecastsAtBlockRequest {
   uint64 topic_id = 1;
@@ -427,6 +525,81 @@ message QueryNetworkInferencesAtBlockRequest {
 
 message QueryLatestNetworkInferencesAtBlockRequest {
   uint64 topic_id = 1;
+}
+
+message QueryIsWorkerNonceUnfulfilledRequest {
+  uint64 topic_id = 1;
+  int64 block_height = 2;
+}
+
+message QueryIsWorkerNonceUnfulfilledResponse {
+  bool is_worker_nonce_unfulfilled = 1;
+}
+
+message QueryUnfulfilledReputerNoncesRequest {
+  uint64 topic_id = 1;
+}
+
+message QueryUnfulfilledReputerNoncesResponse {
+  ReputerRequestNonces nonces = 1;
+}
+
+message QueryUnfulfilledWorkerNoncesRequest {
+  uint64 topic_id = 1;
+}
+
+message QueryUnfulfilledWorkerNoncesResponse {
+  Nonces nonces = 1;
+}
+
+message QueryInfererNetworkRegretRequest {
+  uint64 topic_id = 1;
+  string actor_id = 2;
+}
+
+message QueryInfererNetworkRegretResponse {
+  TimestampedValue regret = 1;
+  bool not_found = 2;
+}
+
+message QueryForecasterNetworkRegretRequest {
+  uint64 topic_id = 1;
+  string worker = 2;
+}
+
+message QueryForecasterNetworkRegretResponse {
+  TimestampedValue regret = 1;
+  bool not_found = 2;
+}
+
+message QueryOneInForecasterNetworkRegretRequest {
+  uint64 topic_id = 1;
+  string forecaster = 2;
+  string inferer = 3;
+}
+
+message QueryOneInForecasterNetworkRegretResponse {
+  TimestampedValue regret = 1;
+  bool not_found = 2;
+}
+
+message QueryOneInForecasterSelfNetworkRegretRequest {
+  uint64 topic_id = 1;
+  string forecaster = 2;
+}
+
+message QueryOneInForecasterSelfNetworkRegretResponse {
+  TimestampedValue regret = 1;
+  bool not_found = 2;
+}
+
+message QueryIsReputerNonceUnfulfilledRequest {
+  uint64 topic_id = 1;
+  int64 block_height = 2;
+}
+
+message QueryIsReputerNonceUnfulfilledResponse {
+  bool is_reputer_nonce_unfulfilled = 1;
 }
 
 message QueryNetworkInferencesAtBlockResponse {
@@ -507,4 +680,78 @@ message QueryTopicLastCommitRequest {
 
 message QueryTopicLastCommitResponse {
   TimestampedActorNonce last_commit = 1;
+}
+
+message QueryTopicRewardNonceRequest {
+  uint64 topic_id = 1;
+}
+
+message QueryTopicRewardNonceResponse {
+  int64 nonce = 1;
+}
+
+message QueryReputerLossBundlesAtBlockRequest {
+  uint64 topic_id = 1;
+  int64 block_height = 2;
+}
+
+message QueryReputerLossBundlesAtBlockResponse {
+  ReputerValueBundles loss_bundles = 1;
+}
+
+message QueryStakeReputerAuthorityRequest {
+  uint64 topic_id = 1;
+  string reputer = 2;
+}
+
+message QueryStakeReputerAuthorityResponse {
+  string authority = 1 [
+    (cosmos_proto.scalar) = "cosmos.Int",
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
+
+message QueryDelegateStakePlacementRequest {
+  uint64 topic_id = 1;
+  string delegator = 2;
+  string target = 3;
+}
+
+message QueryDelegateStakePlacementResponse {
+  DelegatorInfo delegator_info = 1;
+}
+
+message QueryDelegateStakeUponReputerRequest {
+  uint64 topic_id = 1;
+  string target = 2;
+}
+
+message QueryDelegateStakeUponReputerResponse {
+  string stake = 1 [
+    (cosmos_proto.scalar) = "cosmos.Int",
+    (gogoproto.customtype) = "cosmossdk.io/math.Int",
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
+
+message QueryDelegateRewardPerShareRequest {
+  uint64 topic_id = 1;
+  string reputer = 2;
+}
+
+message QueryDelegateRewardPerShareResponse {
+  string reward_per_share = 1
+      [(gogoproto.customtype) = "github.com/allora-network/allora-chain/math.Dec", (gogoproto.nullable) = false];
+}
+
+message QueryStakeRemovalForReputerAndTopicIdRequest {
+  string reputer = 1;
+  uint64 topic_id = 2;
+}
+
+message QueryStakeRemovalForReputerAndTopicIdResponse {
+  StakeRemovalInfo stake_removal_info = 1;
 }
