@@ -13,6 +13,7 @@ import (
 // weights using the current regrets
 func (p *SynthPalette) CalcWeightsGivenWorkers() (RegretInformedWeights, error) {
 	var regrets []alloraMath.Dec
+	// Just regrets with a prior value associated will be considered
 	infererRegrets := p.GetInfererRegretsSlice()
 	forecasterRegrets := p.GetForecasterRegretsSlice()
 
@@ -192,7 +193,7 @@ func (p *SynthPalette) CalcWeightedInference(weights RegretInformedWeights) (Inf
 		}
 
 		// If all inferers are new, forecasters are not considered
-		if p.InferersNewStatus != InferersAllNew {
+		if p.InferersNewStatus != InferersAllNew && p.InferersNewStatus != InferersAllNewExceptOne {
 			for _, forecaster := range p.Forecasters {
 				if _, ok := p.ForecastImpliedInferenceByWorker[forecaster]; !ok {
 					p.Logger.Debug(fmt.Sprintf("Cannot find forecaster in ForecastImpliedInferenceByWorker in CalcWeightedInference %v", forecaster))
@@ -244,7 +245,9 @@ func (p *SynthPalette) GetInfererRegretsSlice() []alloraMath.Dec {
 			p.Logger.Debug(fmt.Sprintf("Cannot find forecaster in InfererRegrets in GetInfererRegretsSlice %v", inferer))
 			continue
 		}
-		regrets = append(regrets, regretInfo.regret)
+		if !regretInfo.noPriorRegret {
+			regrets = append(regrets, regretInfo.regret)
+		}
 	}
 	return regrets
 }
@@ -261,7 +264,9 @@ func (p *SynthPalette) GetForecasterRegretsSlice() []alloraMath.Dec {
 			p.Logger.Debug(fmt.Sprintf("Cannot find forecaster in ForecasterRegrets in GetForecasterRegretsSlice %v", forecaster))
 			continue
 		}
-		regrets = append(regrets, regretInfo.regret)
+		if !regretInfo.noPriorRegret {
+			regrets = append(regrets, regretInfo.regret)
+		}
 	}
 	return regrets
 }
@@ -278,6 +283,7 @@ func (p *SynthPalette) UpdateInferersInfo(newInferers []Worker) error {
 			p.Logger.Debug(fmt.Sprintf("Cannot find inferer in InfererRegrets in UpdateInferersInfo %v", inferer))
 			continue
 		}
+
 		if !regretInfo.noPriorRegret {
 			if p.InferersNewStatus == InferersAllNew {
 				p.InferersNewStatus = InferersAllNewExceptOne
@@ -287,13 +293,13 @@ func (p *SynthPalette) UpdateInferersInfo(newInferers []Worker) error {
 				p.SingleNotNewInferer = ""
 			}
 		}
-		infererRegrets[inferer] = regretInfo
 
 		inference, ok := p.InferenceByWorker[inferer]
 		if !ok {
 			p.Logger.Debug(fmt.Sprintf("Cannot find inferer in InferenceByWorker in UpdateInferersInfo %v", inferer))
 			continue
 		}
+		infererRegrets[inferer] = regretInfo
 		inferenceByWorker[inferer] = inference
 	}
 	p.InferenceByWorker = inferenceByWorker
@@ -314,13 +320,21 @@ func (p *SynthPalette) UpdateForecastersInfo(newForecasters []Worker) error {
 			p.Logger.Debug(fmt.Sprintf("Cannot find forecaster in ForecasterRegrets in UpdateForecastersInfo %v", forecaster))
 			continue
 		}
-		forecasterRegrets[forecaster] = regretInfo
+
+		if !regretInfo.noPriorRegret {
+			if p.ForecastersNewStatus == ForecastersAllNew {
+				p.ForecastersNewStatus = ForecastersAllNewExceptOne
+			} else {
+				p.ForecastersNewStatus = ForecastersNotNew
+			}
+		}
 
 		forecast, ok := p.ForecastByWorker[forecaster]
 		if !ok {
 			p.Logger.Debug(fmt.Sprintf("Cannot find forecaster in ForecastByWorker in UpdateForecastersInfo %v", forecaster))
 			continue
 		}
+		forecasterRegrets[forecaster] = regretInfo
 		forecastByWorker[forecaster] = forecast
 	}
 
